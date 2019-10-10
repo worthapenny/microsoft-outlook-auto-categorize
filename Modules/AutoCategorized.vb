@@ -5,14 +5,14 @@ Public KnownSenders As Dictionary
 
 Public Sub AddSenders()
     Set KnownSenders = New Dictionary
-    KnownSenders.Add "Help@bentley.com", "Help"
-    KnownSenders.Add "do-not-reply@innovyze.manuscript.com", "Manu"
+    KnownSenders.Add "Help@domain.com", "Help"
+    KnownSenders.Add "do-not-reply@do.not-reply.com", "NDR"
 End Sub
 
 
 Public Sub AddSubjectLines()
     Set KnownSubjectLines = New Dictionary
-    KnownSubjectLines.Add "FogBugz (Case", "FB"
+    KnownSubjectLines.Add "Subject line", "SL"
     
 End Sub
    
@@ -21,8 +21,6 @@ Public Sub AddDomainNames()
     Set KnownDomains = New Dictionary
     KnownDomains.Add "twitter.com", "Tweet"
     KnownDomains.Add "gmail.com", "Gmail"
-    KnownDomains.Add "engineroomtech.com", "Website"
-    KnownDomains.Add "communities.bentley.com", "BE Comm"
     
 End Sub
 
