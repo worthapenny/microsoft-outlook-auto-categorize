@@ -76,8 +76,8 @@ Public Sub OutlookItemReceivedOrSent(mailItem As Object)
     ApplyCategoryBySubject emailSubject, mailItem
     
     
-    Dim sender As String: sender = GetSenderEmail(mailItem)
-    ApplyCategoryBySender sender, mailItem
+    'Dim sender As String: sender = GetSenderEmail(mailItem)
+    'ApplyCategoryBySender sender, mailItem
     
 End Sub
 
@@ -115,10 +115,18 @@ Public Sub ApplyCategory(emailAddresses As Collection, emailItem As Object)
             Dim domainName As String
             domainName = GetDomain(emailAddress)
             
+            ' based on KnownDomains
             Dim domainItems As Variant
             For Each domainItems In KnownDomains.KeyValuePairs
                 If domainName = domainItems.key Then
                     ApplyCategoryToEmail emailItem, domainItems.value ' value = category name
+                End If
+            Next
+            
+            ' based on known emails            
+            For Each knownEmail In KnownSenders.KeyValuePairs
+                If knownEmail.key = emailAddress Then
+                    ApplyCategoryToEmail emailItem, knownEmail.value
                 End If
             Next
             
@@ -161,7 +169,7 @@ Public Function ValidEmail(emailAddress As String) As Boolean
     Dim oRegEx As Object
     Set oRegEx = CreateObject("VBScript.RegExp")
     With oRegEx
-        .Pattern = "^[\w-\.]{1,}\@([\da-zA-Z-]{1,}\.){1,}[\da-zA-Z-]{2,3}$"
+        .Pattern = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@([\da-zA-Z-]{1,}\.){1,}[\da-zA-Z-]{2,3}$"
         ValidEmail = .test(emailAddress)
     End With
     Set oRegEx = Nothing
