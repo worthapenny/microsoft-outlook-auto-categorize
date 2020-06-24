@@ -86,3 +86,28 @@ End Sub
 
 ## Restart Outlook
 Once above two setps are done, restart outlook.
+
+
+## Run PowerShell when conditions are right
+
+If you need to do some external work based on the email you received or sent, you can do something like below to automate
+
+```VB
+Public Sub RunPowerSheelToInstallApplications(emailAddresses As Collection, emailItem As Object)
+    Dim email As Variant
+    For Each email In emailAddresses
+        Dim emailAddress As String: emailAddress = CStr(email)
+        If ValidEmail(emailAddress) _
+            And emailAddress = "email@email.com" _
+            And InStr(emailItem.Subject, "SubjectContains") Then
+        
+            'Run power shell
+            Dim ps As Variant
+            ps = Shell("POWERSHELL.exe -noexit " & _
+                  """D:\..\..\PowerShell\MyPowerShell.ps1""", 1)
+            
+        End If
+    Next
+        
+End Sub
+```
